@@ -6,15 +6,18 @@ on:
 
 jobs:
   connect-to-vm:
-    name: Connect to VM
     runs-on: ubuntu-latest
-    uses: appleboy/ssh-action@v0.1.8
-    with:
-      host: ${{ secrets.VM_HOST }}
-      username: ${{ secrets.VM_USER }}
-      key: ${{ secrets.VM_SSH_KEY }}
-      script: |
-        echo "hello world!"
-#        cd /path/to/app
-#        git pull
-#        ./restart-app.sh
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            echo "hello world!"
+    #        cd /path/to/app
+    #        git pull
+    #        ./restart-app.sh
